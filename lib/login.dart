@@ -15,8 +15,7 @@ class MyLogIn extends StatefulWidget {
 class _MyLogInState extends State<MyLogIn> {
   Future<void> login(
       dynamic emailController, dynamic passwordController) async {
-    final url = Uri.parse(
-        'https://9ad2-150-107-106-6.ngrok-free.app/api/login/'); // Replace with your API endpoint
+    final url = Uri.parse(''); // Replace with your API endpoint
 
     try {
       final response = await http.post(
@@ -241,8 +240,8 @@ class _MyLogInState extends State<MyLogIn> {
               onPressed: () {
                 debugPrint('Sign Up');
 
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const Mysignup()));
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => Mysignup()));
               },
               child: _makeGreyText("Sign Up", TextStyle(fontSize: 25)),
             )
