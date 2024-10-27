@@ -83,7 +83,6 @@ class MysignupState extends State<Mysignup> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: 169.0),
-              _firstAndLastName(),
               SizedBox(height: 24.0),
               _usernameTextField(),
               SizedBox(height: 24.0),
@@ -96,62 +95,6 @@ class MysignupState extends State<Mysignup> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _firstAndLastName() {
-    return Row(
-      children: [
-        Expanded(
-          child: TextField(
-            controller: _firstNameController,
-            decoration: InputDecoration(
-              labelText: 'First Name',
-              labelStyle: TextStyle(color: Colors.white70),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    width: 2.0),
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: const Color(0xFFE1BEE7), width: 1.5),
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-            ),
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        SizedBox(width: 16.0),
-        Expanded(
-          child: TextField(
-            controller: _lastNameController,
-            decoration: InputDecoration(
-              labelText: 'Last Name',
-              labelStyle: TextStyle(color: Colors.white70),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    width: 2.0),
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: const Color(0xFFE1BEE7), width: 1.5),
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-            ),
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      ],
     );
   }
 
