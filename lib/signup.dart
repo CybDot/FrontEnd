@@ -83,7 +83,12 @@ class MysignupState extends State<Mysignup> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: 169.0),
-              SizedBox(height: 24.0),
+              Text('Welcome',
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 45,
+                      fontFamily: 'ChelaOne')),
+              SizedBox(height: 56.0),
               _usernameTextField(),
               SizedBox(height: 24.0),
               _emailTextField(),
@@ -103,7 +108,7 @@ class MysignupState extends State<Mysignup> {
       controller: _usernameController,
       decoration: InputDecoration(
         labelText: 'Username',
-        labelStyle: TextStyle(color: Colors.white70),
+        labelStyle: TextStyle(color: Colors.white70, fontFamily: 'Abrilfat'),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
@@ -126,7 +131,7 @@ class MysignupState extends State<Mysignup> {
       controller: _emailController,
       decoration: InputDecoration(
         labelText: 'Email',
-        labelStyle: TextStyle(color: Colors.white70),
+        labelStyle: TextStyle(color: Colors.white70, fontFamily: 'Abrilfat'),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
@@ -150,7 +155,7 @@ class MysignupState extends State<Mysignup> {
       controller: _passwordController,
       decoration: InputDecoration(
         labelText: 'Password',
-        labelStyle: TextStyle(color: Colors.white70),
+        labelStyle: TextStyle(color: Colors.white70, fontFamily: 'Abrilfat'),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
