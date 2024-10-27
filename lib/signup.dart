@@ -1,6 +1,8 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_print, prefer_const_constructors, non_constant_identifier_names
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, use_build_context_synchronously, avoid_print, prefer_const_literals_to_create_immutables, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Mysignup extends StatefulWidget {
   @override
@@ -9,119 +11,227 @@ class Mysignup extends StatefulWidget {
 
 class MysignupState extends State<Mysignup> {
   // Controllers for the input fields
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   // Function to handle signup action
-  void _signUp() {
-    // You can add your sign-up logic here
-    final name = _nameController.text;
+  Future<void> _signUp() async {
+    final firstName = _firstNameController.text;
+    final lastName = _lastNameController.text;
+    final username = _usernameController.text;
     final email = _emailController.text;
     final password = _passwordController.text;
-    print("Name: $name, Email: $email, Password: $password");
-    // Perform signup action or call your signup function here
+
+    try {
+      final response = await http.post(
+        Uri.parse(
+            "https://4811-150-107-106-22.ngrok-free.app/api/registration/"), // Replace with your actual signup API URL
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
+          "first_name": firstName,
+          "last_name": lastName,
+          "username": username,
+          "email": email,
+          "password": password,
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        // Signup success
+        print("Signup successful!");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Signup successful!")),
+        );
+      } else {
+        // Signup failed
+        print("Signup failed with status: ${response.statusCode}");
+        print("Error: ${response.body}");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Signup failed: ${response.body}")),
+        );
+      }
+    } catch (e) {
+      print("An error occurred: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("An error occurred")),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Sign Up"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child:
-            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          _fristAndLastName(),
-          SizedBox(height: 24.0),
-          _nameTExtfeild(),
-          SizedBox(height: 24.0),
-          _EmailTExtfeild(),
-          SizedBox(height: 24.0),
-          _passwordTExtfeild(),
-          SizedBox(height: 24.0),
-          _SignupButton()
-        ]),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.deepPurple, // Starting color
+              Colors.purpleAccent, // Ending color
+            ],
+            begin: Alignment.topLeft, // Gradient start point
+            end: Alignment.bottomRight, // Gradient end point
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: 169.0),
+              _firstAndLastName(),
+              SizedBox(height: 24.0),
+              _usernameTextField(),
+              SizedBox(height: 24.0),
+              _emailTextField(),
+              SizedBox(height: 24.0),
+              _passwordTextField(),
+              SizedBox(height: 24.0),
+              _signUpButton(),
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  Widget _fristAndLastName() {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Row(children: [
-        TextField(
-          controller: _nameController,
-          decoration: InputDecoration(
-            labelText: 'First Name',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.0), // Make edges circular
+  Widget _firstAndLastName() {
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            controller: _firstNameController,
+            decoration: InputDecoration(
+              labelText: 'First Name',
+              labelStyle: TextStyle(color: Colors.white70),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    width: 2.0),
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: const Color(0xFFE1BEE7), width: 1.5),
+                borderRadius: BorderRadius.circular(30.0),
+              ),
             ),
+            style: TextStyle(color: Colors.white),
           ),
         ),
-        TextField(
-          controller: _nameController,
-          decoration: InputDecoration(
-            labelText: 'Last Name',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.0), // Make edges circular
+        SizedBox(width: 16.0),
+        Expanded(
+          child: TextField(
+            controller: _lastNameController,
+            decoration: InputDecoration(
+              labelText: 'Last Name',
+              labelStyle: TextStyle(color: Colors.white70),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    width: 2.0),
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: const Color(0xFFE1BEE7), width: 1.5),
+                borderRadius: BorderRadius.circular(30.0),
+              ),
             ),
+            style: TextStyle(color: Colors.white),
           ),
         ),
-      ])
-    ]);
+      ],
+    );
   }
 
-  // Name Field
-  Widget _nameTExtfeild() {
+  Widget _usernameTextField() {
     return TextField(
-      controller: _nameController,
+      controller: _usernameController,
       decoration: InputDecoration(
         labelText: 'Username',
+        labelStyle: TextStyle(color: Colors.white70),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.0), // Make edges circular
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: const Color.fromARGB(255, 255, 255, 255), width: 2.0),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: const Color(0xFFE1BEE7), width: 1.5),
+          borderRadius: BorderRadius.circular(30.0),
         ),
       ),
+      style: TextStyle(color: Colors.white),
     );
-
-    // Email Field
   }
 
-  Widget _EmailTExtfeild() {
+  Widget _emailTextField() {
     return TextField(
       controller: _emailController,
       decoration: InputDecoration(
         labelText: 'Email',
+        labelStyle: TextStyle(color: Colors.white70),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.0), // Make edges circular
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: const Color.fromARGB(255, 255, 255, 255), width: 2.0),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: const Color(0xFFE1BEE7), width: 1.5),
+          borderRadius: BorderRadius.circular(30.0),
         ),
       ),
       keyboardType: TextInputType.emailAddress,
+      style: TextStyle(color: Colors.white),
     );
   }
 
-  // Password Field
-  Widget _passwordTExtfeild() {
+  Widget _passwordTextField() {
     return TextField(
       controller: _passwordController,
       decoration: InputDecoration(
         labelText: 'Password',
+        labelStyle: TextStyle(color: Colors.white70),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.0), // Make edges circular
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: const Color.fromARGB(255, 255, 255, 255), width: 2.0),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: const Color(0xFFE1BEE7), width: 1.5),
+          borderRadius: BorderRadius.circular(30.0),
         ),
       ),
+      style: TextStyle(color: Colors.white),
       obscureText: true,
     );
   }
 
-  // Sign Up Button
-  Widget _SignupButton() {
+  Widget _signUpButton() {
     return TextButton(
       onPressed: _signUp,
       style: TextButton.styleFrom(
-        backgroundColor: Colors.deepPurple, // Background color
-        foregroundColor: Colors.white, // Text color
-        padding: EdgeInsets.symmetric(horizontal: 32.0),
+        backgroundColor: Colors.pinkAccent,
+        padding: EdgeInsets.symmetric(vertical: 16.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
@@ -139,8 +249,9 @@ class MysignupState extends State<Mysignup> {
 
   @override
   void dispose() {
-    // Dispose controllers to free up memory
-    _nameController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
