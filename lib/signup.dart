@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, use_build_context_synchronously, avoid_print, prefer_const_literals_to_create_immutables, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
+import 'package:velnoteproj/login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -94,6 +95,7 @@ class MysignupState extends State<Mysignup> {
               _emailTextField(),
               SizedBox(height: 24.0),
               _passwordTextField(),
+              _buildloginConnector(),
               SizedBox(height: 24.0),
               _signUpButton(),
             ],
@@ -192,6 +194,34 @@ class MysignupState extends State<Mysignup> {
           fontWeight: FontWeight.w600,
         ),
       ),
+    );
+  }
+
+  Widget _buildloginConnector() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            Text(
+              'Already have an Account?',
+              style: TextStyle(color: Colors.white70),
+            ),
+            TextButton(
+              onPressed: () {
+                debugPrint('Log in');
+
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => MyLogIn()));
+              },
+              child: Text("Log in",
+                  style: TextStyle(
+                      color: const Color.fromARGB(255, 255, 249, 251),
+                      fontSize: 15)),
+            )
+          ],
+        )
+      ],
     );
   }
 
