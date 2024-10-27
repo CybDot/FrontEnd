@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, prefer_const_constructors, unused_element, depend_on_referenced_packages
+// ignore_for_file: file_names, prefer_const_constructors, unused_element, depend_on_referenced_packages, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:velnoteproj/signup.dart';
@@ -15,7 +15,8 @@ class MyLogIn extends StatefulWidget {
 class _MyLogInState extends State<MyLogIn> {
   Future<void> login(
       dynamic emailController, dynamic passwordController) async {
-    final url = Uri.parse(''); // Replace with your API endpoint
+    final url = Uri.parse(
+        'https://4811-150-107-106-22.ngrok-free.app/api/login/'); // Replace with your API endpoint
 
     try {
       final response = await http.post(
@@ -47,7 +48,6 @@ class _MyLogInState extends State<MyLogIn> {
   TextEditingController passwordCotroller = TextEditingController();
   bool rememberUser = false;
 
-  get children => null;
   @override
   Widget build(BuildContext context) {
     myColor = Theme.of(context).primaryColor;
@@ -110,19 +110,23 @@ class _MyLogInState extends State<MyLogIn> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          ' Welcome',
+          ' Welcome Back',
           style: TextStyle(
-            fontSize: 30,
+            fontSize: 35,
+            fontFamily: 'ChelaOne',
             fontWeight: FontWeight.w600,
             color: myColor,
           ),
         ),
-        const SizedBox(height: 45),
-        _makeGreyText('E-mail Address', TextStyle(fontSize: 30)),
-        _buildInputFeild(emailCotroller),
+
+        const SizedBox(height: 25),
+
+        //email
+        _EmailTextFeild(),
         const SizedBox(height: 15),
-        _makeGreyText('Password', TextStyle(fontSize: 15)),
-        _buildInputFeild(passwordCotroller, isPassword: true),
+
+        //password
+        _passwordTextField(),
         const SizedBox(height: 15),
         _buildRememberForget(),
         _buildSignUpConnector(),
@@ -154,24 +158,57 @@ class _MyLogInState extends State<MyLogIn> {
     );
   }
 
-  Widget _buildInputFeild(TextEditingController controller,
-
-// create a texteditingcontroller where text can be written in a box
-      {isPassword = false}) {
+  Widget _EmailTextFeild() {
     return TextField(
-        controller: controller,
-        obscureText: isPassword,
-        // make hint text in box grey and lighter shade
-        style: TextStyle(
-            color: const Color.fromARGB(255, 14, 13, 14),
-            fontWeight: FontWeight.w700),
+      controller: emailCotroller,
+      decoration: InputDecoration(
+        labelText: 'Email',
+        labelStyle: TextStyle(
+            color: Color.fromARGB(255, 108, 5, 142), fontFamily: 'Abrilfat'),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: const Color.fromARGB(255, 169, 23, 247), width: 2.0),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: const Color.fromARGB(255, 236, 129, 255), width: 1.5),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+      ),
+      keyboardType: TextInputType.emailAddress,
+      style: TextStyle(
+          color: const Color.fromARGB(255, 56, 2, 92), fontFamily: 'Abrilfat'),
+    );
+  }
+
+  Widget _passwordTextField() {
+    return TextField(
+        controller: passwordCotroller,
         decoration: InputDecoration(
-          hintStyle: TextStyle(color: Colors.grey),
-          hintText: isPassword ? 'Enter Password' : 'Enter E-mail Address',
+          labelText: 'Password',
+          labelStyle: TextStyle(
+              color: const Color.fromARGB(255, 108, 5, 142),
+              fontFamily: 'Abrilfat'),
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(color: Colors.grey)),
-        ));
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: const Color.fromARGB(255, 169, 23, 247), width: 2.0),
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: const Color.fromARGB(255, 236, 129, 255), width: 1.5),
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+        ),
+        style: TextStyle(
+            color: Color.fromARGB(255, 56, 2, 92), fontFamily: 'Abrilfat'));
   }
 
   Widget _buildRememberForget() {
