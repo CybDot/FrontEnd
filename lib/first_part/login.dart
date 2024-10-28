@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:velnoteproj/first_part/signup.dart';
+// import 'package:velnoteproj/first_part/signup.dart';
 import 'package:velnoteproj/second_part/homePage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -232,21 +233,23 @@ class _MyLogInState extends State<MyLogIn> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          'Don\'t Have an Account?',
-          style: TextStyle(color: Color.fromARGB(128, 41, 39, 39)),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => Mysignup()));
-          },
-          child: Text(
-            "Sign Up",
-            style: TextStyle(
-                fontSize: 15, color: Color.fromARGB(164, 132, 19, 197)),
+        Row(children: [
+          Text(
+            'Don\'t Have an Account?',
+            style: TextStyle(color: Color.fromARGB(128, 41, 39, 39)),
           ),
-        ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => Mysignup()));
+            },
+            child: Text(
+              "Sign Up",
+              style: TextStyle(
+                  fontSize: 15, color: Color.fromARGB(164, 132, 19, 197)),
+            ),
+          ),
+        ]),
       ],
     );
   }
