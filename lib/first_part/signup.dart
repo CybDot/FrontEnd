@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, use_build_context_synchronously, avoid_print, prefer_const_literals_to_create_immutables, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
-import 'package:velnoteproj/login.dart';
+import 'package:velnoteproj/first_part/login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
