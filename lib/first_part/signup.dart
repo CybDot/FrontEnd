@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:velnoteproj/first_part/login.dart';
+import 'package:velnoteproj/second_part/homePage.dart'; // Importing the home page
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -47,6 +48,15 @@ class MysignupState extends State<Mysignup> {
         print("Signup successful!");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Signup successful!")),
+        );
+
+        // Navigate to the Home Page
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(
+                username: username), // Pass the username or any data you need
+          ),
         );
       } else {
         // Signup failed
@@ -210,7 +220,6 @@ class MysignupState extends State<Mysignup> {
             TextButton(
               onPressed: () {
                 debugPrint('Log in');
-
                 Navigator.push(
                     context, MaterialPageRoute(builder: (_) => MyLogIn()));
               },
