@@ -1,11 +1,11 @@
-// ignore_for_file: file_names, prefer_const_constructors, unused_element, depend_on_referenced_packages, non_constant_identifier_names
+// ignore_for_file: file_names, prefer_const_constructors, unused_element, depend_on_referenced_packages, non_constant_identifier_names, use_build_context_synchronously, prefer_const_literals_to_create_immutables, avoid_print, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-
+import 'package:velnoteproj/first_part/signup.dart';
+import 'package:velnoteproj/second_part/homePage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-import 'package:velnoteproj/first_part/signup.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyLogIn extends StatefulWidget {
   const MyLogIn({super.key});
@@ -15,10 +15,11 @@ class MyLogIn extends StatefulWidget {
 }
 
 class _MyLogInState extends State<MyLogIn> {
-  Future<void> login(
-      dynamic emailController, dynamic passwordController) async {
+  // Login function with API call
+  Future<void> login(TextEditingController emailController,
+      TextEditingController passwordController) async {
     final url = Uri.parse(
-        'https://4811-150-107-106-22.ngrok-free.app/api/login/'); // Replace with your API endpoint
+        'https://your-ngrok-url/api/login/'); // Replace with your actual API endpoint
 
     try {
       final response = await http.post(
@@ -30,14 +31,21 @@ class _MyLogInState extends State<MyLogIn> {
         }),
       );
 
-      if (response.statusCode == 200) {
-        // Assuming the API sends a token or user data in response
-        final data = jsonDecode(response.body);
-        debugPrint('Login Successful: $data');
-        // Navigate to another screen or store the token for future requests
-      } else {
-        debugPrint('Login Failed: ${response.body}');
-        // Handle unsuccessful login attempt (e.g., display an error message)
+      if (response.statusCode == 201) {
+        // Signup success
+        print("Signup successful!");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Signup successful!")),
+        );
+
+        // Navigate to the Home Page and pass the username
+        var username;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(username: username),
+          ),
+        );
       }
     } catch (e) {
       debugPrint('Error: $e');
@@ -46,8 +54,8 @@ class _MyLogInState extends State<MyLogIn> {
 
   late Color myColor;
   late Size mediaSize;
-  TextEditingController emailCotroller = TextEditingController();
-  TextEditingController passwordCotroller = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool rememberUser = false;
 
   @override
@@ -68,7 +76,7 @@ class _MyLogInState extends State<MyLogIn> {
         body: Stack(
           children: [
             Positioned(top: 80, child: _buildTop()),
-            Positioned(bottom: 0, child: _bulidButtom()),
+            Positioned(bottom: 0, child: _buildBottom()),
           ],
         ),
       ),
@@ -91,7 +99,7 @@ class _MyLogInState extends State<MyLogIn> {
     );
   }
 
-  Widget _bulidButtom() {
+  Widget _buildBottom() {
     return SizedBox(
       width: mediaSize.width,
       child: Card(
@@ -102,17 +110,17 @@ class _MyLogInState extends State<MyLogIn> {
           )),
           child: Padding(
             padding: const EdgeInsets.all(27.0),
-            child: _bulidForm(),
+            child: _buildForm(),
           )),
     );
   }
 
-  Widget _bulidForm() {
+  Widget _buildForm() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          ' Welcome Back',
+          'Welcome Back',
           style: TextStyle(
             fontSize: 35,
             fontFamily: 'ChelaOne',
@@ -120,14 +128,9 @@ class _MyLogInState extends State<MyLogIn> {
             color: myColor,
           ),
         ),
-
         const SizedBox(height: 25),
-
-        //email
-        _EmailTextFeild(),
+        _emailTextField(),
         const SizedBox(height: 15),
-
-        //password
         _passwordTextField(),
         const SizedBox(height: 15),
         _buildRememberForget(),
@@ -140,29 +143,9 @@ class _MyLogInState extends State<MyLogIn> {
     );
   }
 
-  Widget _makeGreyText(String text, TextStyle textStyle) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        color: Color.fromARGB(164, 132, 19, 197),
-      ),
-    );
-  }
-
-  Widget _makeLIghtText(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        color: Color.fromARGB(128, 41, 39, 39),
-      ),
-    );
-  }
-
-  Widget _EmailTextFeild() {
+  Widget _emailTextField() {
     return TextField(
-      controller: emailCotroller,
+      controller: emailController,
       decoration: InputDecoration(
         labelText: 'Email',
         labelStyle: TextStyle(
@@ -175,11 +158,6 @@ class _MyLogInState extends State<MyLogIn> {
               color: const Color.fromARGB(255, 169, 23, 247), width: 2.0),
           borderRadius: BorderRadius.circular(30.0),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-              color: const Color.fromARGB(255, 236, 129, 255), width: 1.5),
-          borderRadius: BorderRadius.circular(30.0),
-        ),
       ),
       keyboardType: TextInputType.emailAddress,
       style: TextStyle(
@@ -189,53 +167,48 @@ class _MyLogInState extends State<MyLogIn> {
 
   Widget _passwordTextField() {
     return TextField(
-        controller: passwordCotroller,
-        decoration: InputDecoration(
-          labelText: 'Password',
-          labelStyle: TextStyle(
-              color: const Color.fromARGB(255, 108, 5, 142),
-              fontFamily: 'Abrilfat'),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: const Color.fromARGB(255, 169, 23, 247), width: 2.0),
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: const Color.fromARGB(255, 236, 129, 255), width: 1.5),
-            borderRadius: BorderRadius.circular(30.0),
-          ),
+      controller: passwordController,
+      decoration: InputDecoration(
+        labelText: 'Password',
+        labelStyle: TextStyle(
+            color: const Color.fromARGB(255, 108, 5, 142),
+            fontFamily: 'Abrilfat'),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30.0),
         ),
-        style: TextStyle(
-            color: Color.fromARGB(255, 56, 2, 92), fontFamily: 'Abrilfat'));
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: const Color.fromARGB(255, 169, 23, 247), width: 2.0),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+      ),
+      obscureText: true,
+      style: TextStyle(
+          color: Color.fromARGB(255, 56, 2, 92), fontFamily: 'Abrilfat'),
+    );
   }
 
   Widget _buildRememberForget() {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Row(children: [
-        Icon(
-          // make icon grey
-          color: Colors.grey,
-          size: 25,
-          Icons.lock,
-        ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
         TextButton(
           onPressed: () {
             debugPrint('Forgot Password');
           },
-          child: _makeLIghtText('Forgot Your Password?'),
+          child: Text(
+            'Forgot Your Password?',
+            style: TextStyle(color: Color.fromARGB(128, 41, 39, 39)),
+          ),
         )
-      ])
-    ]);
+      ],
+    );
   }
 
   Widget _buildLogInButton() {
     return TextButton(
       onPressed: () {
-        login(emailCotroller, passwordCotroller);
+        login(emailController, passwordController);
       },
       style: TextButton.styleFrom(
         shape: const StadiumBorder(),
@@ -255,38 +228,41 @@ class _MyLogInState extends State<MyLogIn> {
     );
   }
 
-  Widget _buildOtherLogin() {
-    return Center(
-        child: Column(
-      children: [
-        _makeGreyText('or Login With', TextStyle(fontSize: 15)),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [Tab(icon: Image.asset('assets/google.png'))],
-        )
-      ],
-    ));
-  }
-
   Widget _buildSignUpConnector() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            _makeLIghtText('Dont Have an Account?'),
-            TextButton(
-              onPressed: () {
-                debugPrint('Sign Up');
+        Text(
+          'Don\'t Have an Account?',
+          style: TextStyle(color: Color.fromARGB(128, 41, 39, 39)),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => Mysignup()));
+          },
+          child: Text(
+            "Sign Up",
+            style: TextStyle(
+                fontSize: 15, color: Color.fromARGB(164, 132, 19, 197)),
+          ),
+        ),
+      ],
+    );
+  }
 
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => Mysignup()));
-              },
-              child: _makeGreyText("Sign Up", TextStyle(fontSize: 25)),
-            )
+  Widget _buildOtherLogin() {
+    return Center(
+        child: Column(
+      children: [
+        Text('or Login With', style: TextStyle(color: Colors.grey)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(FontAwesomeIcons.google),
           ],
         )
       ],
-    );
+    ));
   }
 }
