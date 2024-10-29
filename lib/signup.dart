@@ -94,11 +94,12 @@ class MysignupState extends State<Mysignup> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: 169.0),
-              Text('Welcome',
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 45,
-                      fontFamily: 'ChelaOne')),
+              Center(
+                  child: Text('Create Your Account',
+                      style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 45,
+                          fontFamily: 'ChelaOne'))),
               SizedBox(height: 56.0),
               _usernameTextField(),
               SizedBox(height: 24.0),
