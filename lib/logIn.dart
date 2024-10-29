@@ -24,7 +24,8 @@ class _MyLogInState extends State<MyLogIn> {
       false; // For "Remember Me" functionality (not implemented)
 
   // Login function that makes an API call to authenticate the user
-  Future<void> login() async {
+  Future<void> login(TextEditingController emailController,
+      TextEditingController passwordController) async {
     // Define the API endpoint for login
     final url = Uri.parse(
         'https://e180-150-107-106-37.ngrok-free.app/api/login/'); // Replace with your actual API endpoint
@@ -251,7 +252,7 @@ class _MyLogInState extends State<MyLogIn> {
       children: [
         Row(children: [
           Text(
-            'Don\'t Have an Account?',
+            '  Don\'t Have an Account?',
             style: TextStyle(color: Color.fromARGB(128, 41, 39, 39)),
           ),
           TextButton(
@@ -273,11 +274,23 @@ class _MyLogInState extends State<MyLogIn> {
   // Widget for the login button
   Widget _buildLogInButton() {
     return TextButton(
-      onPressed: login, // Call the login function on press
-      child: Text(
-        "Log In",
-        style:
-            TextStyle(fontSize: 15, color: Color.fromARGB(164, 132, 19, 197)),
+      onPressed: () {
+        login(emailController, passwordController);
+      },
+      style: TextButton.styleFrom(
+        shape: const StadiumBorder(),
+        padding: EdgeInsets.all(10),
+        backgroundColor: Colors.deepPurple,
+        shadowColor: myColor,
+        minimumSize: const Size.fromHeight(60),
+      ),
+      child: const Text(
+        'LOGIN',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
@@ -286,7 +299,6 @@ class _MyLogInState extends State<MyLogIn> {
   Widget _buildSignUpButton() {
     return TextButton(
       onPressed: () {
-        // Navigate to sign-up page
         Navigator.push(
           context,
           MaterialPageRoute(builder: (_) => Mysignup()),
