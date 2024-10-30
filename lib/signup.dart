@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:velnoteproj/logIn.dart';
-import 'package:velnoteproj/homePage.dart'; // Importing the home page
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -30,7 +30,7 @@ class MysignupState extends State<Mysignup> {
     try {
       final response = await http.post(
         Uri.parse(
-            "https://e180-150-107-106-37.ngrok-free.app/api/signup/"), // Replace with your actual signup API URL
+            "https://5237-150-107-106-6.ngrok-free.app/api/signup/"), // Replace with your actual signup API URL
         headers: {
           "Content-Type": "application/json",
         },
@@ -54,8 +54,8 @@ class MysignupState extends State<Mysignup> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage(
-                username: username), // Pass the username or any data you need
+            builder: (context) =>
+                MyLogIn(), // Pass the username or any data you need
           ),
         );
       } else {
