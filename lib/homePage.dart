@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     if (token != null) {
       // Make the API call to fetch the username
       final url = Uri.parse(
-          'https://e180-150-107-106-37.ngrok-free.app/api/home/'); // Replace with your actual API endpoint
+          'https://5237-150-107-106-6.ngrok-free.app/api/home/'); // Replace with your actual API endpoint
 
       try {
         final response = await http.get(
