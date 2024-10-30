@@ -1,8 +1,9 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-// import 'package:velnoteproj/logIn.dart';
-import 'package:velnoteproj/sideMenu.dart';
+import 'package:velnoteproj/logIn.dart';
+// import 'package:velnoteproj/sideMenu.dart';
+// import 'package:velnoteproj/homePage.dart';
 
 void main() {
   runApp(VELNote());
@@ -19,6 +20,6 @@ class VELNote extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
         ),
-        home: Sidemenu());
+        home: MyLogIn());
   }
 }
