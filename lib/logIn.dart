@@ -28,7 +28,7 @@ class _MyLogInState extends State<MyLogIn> {
       TextEditingController passwordController) async {
     // Define the API endpoint for login
     final url = Uri.parse(
-        'https://e180-150-107-106-37.ngrok-free.app/api/login/'); // Replace with your actual API endpoint
+        'https://5237-150-107-106-6.ngrok-free.app/api/login/'); // Replace with your actual API endpoint
 
     try {
       // Send a POST request to the API
@@ -139,13 +139,13 @@ class _MyLogInState extends State<MyLogIn> {
       child: Card(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(25), // Rounded top left corner
-            topRight: Radius.circular(25), // Rounded top right corner
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
           ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(27.0),
-          child: _buildForm(), // Call the function to build the login form
+          child: _buildForm(),
         ),
       ),
     );
