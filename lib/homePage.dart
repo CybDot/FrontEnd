@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'package:velnoteproj/sideMenu.dart';
+
 class HomePage extends StatefulWidget {
   final String username;
   final String msg;
@@ -15,6 +17,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late String username;
 
+  // Define a GlobalKey for the Scaffold to access it anywhere in the widget tree
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -24,9 +29,23 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey, // Assign the GlobalKey to Scaffold
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: _appbar(username),
+        leading: Builder(
+          // Use Builder to ensure correct context for Scaffold
+          builder: (context) => IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              // Use the key to open the drawer
+              _scaffoldKey.currentState!.openDrawer();
+            },
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        child: Sidemenu(), // Your side menu widget
       ),
       body: Center(
         child: Text(
