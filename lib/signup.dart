@@ -30,7 +30,7 @@ class MysignupState extends State<Mysignup> {
     try {
       final response = await http.post(
         Uri.parse(
-            "https://963d-150-107-106-6.ngrok-free.app/api/signup/"), // Replace with your actual signup API URL
+            "https://0723-150-107-106-6.ngrok-free.app/api/signup/"), // Replace with your actual signup API URL
         headers: {
           "Content-Type": "application/json",
         },
