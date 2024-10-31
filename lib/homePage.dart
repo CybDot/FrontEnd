@@ -8,7 +8,7 @@ class HomePage extends StatefulWidget {
   final String username;
   final String msg;
 
-  HomePage({required this.username, required this.msg});
+  HomePage({required this.username, required this.msg, required refreshToken});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -34,11 +34,9 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
         title: _appbar(username),
         leading: Builder(
-          // Use Builder to ensure correct context for Scaffold
           builder: (context) => IconButton(
             icon: Icon(Icons.menu),
             onPressed: () {
-              // Use the key to open the drawer
               _scaffoldKey.currentState!.openDrawer();
             },
           ),
