@@ -24,7 +24,7 @@ class _MyLogInState extends State<MyLogIn> {
   Future<void> login(TextEditingController emailController,
       TextEditingController passwordController) async {
     final url = Uri.parse(
-        'https://963d-150-107-106-6.ngrok-free.app/api/login/'); // Replace with your actual API endpoint
+        'https://0723-150-107-106-6.ngrok-free.app/api/login/'); // Your API URL
 
     try {
       final response = await http.post(
@@ -39,18 +39,22 @@ class _MyLogInState extends State<MyLogIn> {
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
         final token = responseData['access'];
+        final refreshToken = responseData['refresh']; // Get the refresh token
         final username = responseData['username'];
         final msg = responseData['msg'];
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
+        await prefs.setString(
+            'refresh_token', refreshToken); // Save refresh token
         await prefs.setString('username', username);
         await prefs.setString('msg', msg);
 
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage(username: username, msg: msg),
+            builder: (context) => HomePage(
+                username: username, msg: msg, refreshToken: refreshToken),
           ),
         );
       } else {
