@@ -124,7 +124,7 @@ class _SidemenuState extends State<Sidemenu> {
         }
       },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: Duration(milliseconds: 500),
         curve: Curves.easeInOut,
         color: isSelected
             ? const Color.fromARGB(155, 69, 88, 180).withOpacity(0.3)
