@@ -1,7 +1,9 @@
 // ignore_for_file: file_names, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, prefer_const_constructors, unused_element, prefer_typing_uninitialized_variables, avoid_unnecessary_containers, library_private_types_in_public_api, avoid_print
+//
+//  import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
+// import 'package:path/path.dart';
 
 import 'package:velnoteproj/sideMenu.dart';
 
@@ -33,32 +35,56 @@ class _HomePageState extends State<HomePage> {
       key: _scaffoldKey, // Assign the GlobalKey to Scaffold
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: _appBar(username),
+
+        backgroundColor:Colors.deepPurpleAccent,
+        title: _appbar(username),
+
         leading: Builder(
           builder: (context) => IconButton(
-            icon: Icon(Icons.menu),
+            icon: Icon(Icons.menu ,color:Colors.white),
             onPressed: () {
               _scaffoldKey.currentState!.openDrawer();
             },
           ),
         ),
       ),
+      bottomNavigationBar:_bottomNavBar(),
       drawer: Drawer(
         child: Sidemenu(), // Your side menu widget
       ),
     );
   }
 
-  Widget _appBar(String username) {
-    return AppBar(
-      title: Text(
-        'Welcome, ${username.isNotEmpty ? username : "Guest"}!',
-        style: TextStyle(color: Colors.white),
-      ),
-      backgroundColor: Colors.blue,
+  Widget _appbar(String username) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+      children: [
+        Text('Welcome, ${username.isNotEmpty ? username : "Guest"}!',
+          style: TextStyle(color:Colors.white),),
 
 
 
+      ],
     );
+  }
+
+  Widget _bottomNavBar(){
+    return Positioned(
+      left:0,
+      right:0,
+      bottom:0,
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30)
+      ),
+      color:Color(0xFF7010C5),
+      height: 60.0,
+
+    ),
+    );
+
+
+
   }
 }
