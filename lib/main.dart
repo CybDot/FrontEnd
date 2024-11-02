@@ -22,7 +22,7 @@ class VELNote extends StatelessWidget {
         ),
         home: HomePage(
           username: '',
-          msg: '',
+
           refreshToken: null,
         ));
   }
