@@ -12,7 +12,6 @@ class Mysignup extends StatefulWidget {
 }
 
 class MysignupState extends State<Mysignup> {
-  // Controllers for the input fields
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
