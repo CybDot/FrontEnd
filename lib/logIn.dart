@@ -54,7 +54,7 @@ class _MyLogInState extends State<MyLogIn> {
           context,
           MaterialPageRoute(
             builder: (context) => HomePage(
-                username: username, msg: msg, refreshToken: refreshToken),
+                username: username,  refreshToken: refreshToken),
           ),
         );
       } else {
