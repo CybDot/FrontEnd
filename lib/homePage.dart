@@ -10,7 +10,6 @@ import 'package:velnoteproj/sideMenu.dart';
 class HomePage extends StatefulWidget {
   final String username;
 
-
   HomePage({required this.username, required refreshToken});
 
   @override
@@ -35,20 +34,18 @@ class _HomePageState extends State<HomePage> {
       key: _scaffoldKey, // Assign the GlobalKey to Scaffold
       appBar: AppBar(
         automaticallyImplyLeading: false,
-
-        backgroundColor:Colors.deepPurpleAccent,
+        backgroundColor: Color(0xFF7010C5),
         title: _appbar(username),
-
         leading: Builder(
           builder: (context) => IconButton(
-            icon: Icon(Icons.menu ,color:Colors.white),
+            icon: Icon(Icons.menu, color: Colors.white),
             onPressed: () {
               _scaffoldKey.currentState!.openDrawer();
             },
           ),
         ),
       ),
-      bottomNavigationBar:_bottomNavBar(),
+      bottomNavigationBar: _bottomNavBar(),
       drawer: Drawer(
         child: Sidemenu(), // Your side menu widget
       ),
@@ -58,33 +55,30 @@ class _HomePageState extends State<HomePage> {
   Widget _appbar(String username) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
       children: [
-        Text('Welcome, ${username.isNotEmpty ? username : "Guest"}!',
-          style: TextStyle(color:Colors.white),),
-
-
-
+        Text(
+          'Welcome, ${username.isNotEmpty ? username : "Guest"}!',
+          style: TextStyle(color: Colors.white),
+        ),
       ],
     );
   }
 
-  Widget _bottomNavBar(){
+  Widget _bottomNavBar() {
     return Positioned(
-      left:0,
-      right:0,
-      bottom:0,
-    child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30)
+      left: 0,
+      right: 0,
+      bottom: 0,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+          color: Color(0xFF7010C5),
+        ),
+        height: 80.0,
       ),
-      color:Color(0xFF7010C5),
-      height: 60.0,
-
-    ),
     );
-
-
-
   }
 }
