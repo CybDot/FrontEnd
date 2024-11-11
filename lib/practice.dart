@@ -10,7 +10,7 @@ class AnimationPractice extends StatefulWidget {
 class _AnimationPracticeState extends State<AnimationPractice>
     with SingleTickerProviderStateMixin {
   late Animation<double> fadeInTransition;
-  late Animation slideInTransition;
+  late Animation<Offset> slideInTransition;
   late AnimationController controller;
   bool isExpanded = false;
 
@@ -25,7 +25,7 @@ class _AnimationPracticeState extends State<AnimationPractice>
     );
     fadeInTransition = Tween<double>(begin: 0, end: 1).animate(controller);
     slideInTransition =
-        Tween(begin: Offset(-1, 1), end: Offset.zero).animate(controller);
+        Tween(begin: Offset(0, -5), end: Offset.zero).animate(controller);
     controller.forward();
   }
 
@@ -45,8 +45,8 @@ class _AnimationPracticeState extends State<AnimationPractice>
               isExpanded = !isExpanded;
             });
           },
-          child: FadeTransition(
-            opacity: fadeInTransition,
+          child: SlideTransition(
+            position: slideInTransition,
             child: AnimatedContainer(
               duration: Duration(milliseconds: 900),
               width: isExpanded ? 200.0 : 80.0,
