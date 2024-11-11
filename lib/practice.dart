@@ -10,8 +10,11 @@ class AnimationPractice extends StatefulWidget {
 class _AnimationPracticeState extends State<AnimationPractice>
     with SingleTickerProviderStateMixin {
   late Animation<double> fadeInTransition;
+  late Animation slideInTransition;
   late AnimationController controller;
   bool isExpanded = false;
+
+  // FadeIn tranisition practoice & slideIN transition practice
 
   @override
   void initState() {
@@ -21,6 +24,8 @@ class _AnimationPracticeState extends State<AnimationPractice>
       vsync: this,
     );
     fadeInTransition = Tween<double>(begin: 0, end: 1).animate(controller);
+    slideInTransition =
+        Tween(begin: Offset(-1, 1), end: Offset.zero).animate(controller);
     controller.forward();
   }
 
