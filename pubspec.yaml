@@ -73,7 +73,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - assets/icons/
+   - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -96,7 +96,7 @@ flutter:
       fonts:
         - asset: assets/fonts/ChelaOne-Regular.ttf
 
-    - family: Chewy-Regular 
+    - family: Chewy
       fonts:
         - asset: assets/fonts/Chewy-Regular.ttf
   #         weight: 700
