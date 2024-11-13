@@ -95,6 +95,10 @@ flutter:
     - family: ChelaOne
       fonts:
         - asset: assets/fonts/ChelaOne-Regular.ttf
+
+    - family: Chewy-Regular 
+      fonts:
+        - asset: assets/fonts/Chewy-Regular.ttf
   #         weight: 700
   #
   # For details regarding fonts from package dependencies,
