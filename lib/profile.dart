@@ -19,11 +19,14 @@ class _MyProfileState extends State<MyProfile> {
           margin: EdgeInsets.all(10),
           child: Icon(Icons.arrow_back, color: Colors.black),
         ),
-        title: Text('Profile',
-            style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 30,
-                fontFamily: 'Chewy-Regular')),
+        title: Container(
+          margin: EdgeInsets.only(top: 5),
+          child: Text('Profile',
+              style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 30,
+                  fontFamily: 'Chewy-Regular')),
+        ),
         actions: [
           IconButton(
             icon: Icon(isdark ? Icons.sunny : Icons.stars),
@@ -33,22 +36,41 @@ class _MyProfileState extends State<MyProfile> {
         centerTitle: true,
       ),
       body: Container(
-          margin: EdgeInsets.only(top: 70.0),
-          padding: EdgeInsets.all(10),
-          child: Column(
-            children: [
-              Center(
-                child: SizedBox(
-                    width: 190,
-                    height: 190,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(55),
-                      child: Image(
-                          image: AssetImage('assets/img/testProfile.jpg')),
-                    )),
+        margin: EdgeInsets.only(top: 70.0),
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Center(
+              child: SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(120),
+                    child: Image(
+                      image: AssetImage('assets/img/testProfile.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  )),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Hi! VelNote Admin',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+                fontFamily: 'chewy',
+                color: const Color.fromARGB(255, 55, 4, 103),
               ),
-            ],
-          )),
+            ),
+            SizedBox(height: 40),
+            Row(
+              children: [
+                Container(margin: EdgeInsets.all(20), child: Icon(Icons.edit))
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
