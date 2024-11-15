@@ -1,7 +1,9 @@
-// ignore_for_file: file_names, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, prefer_const_constructors, unused_element, prefer_typing_uninitialized_variables, avoid_unnecessary_containers, library_private_types_in_public_api, avoid_print, non_constant_identifier_names, deprecated_member_use, prefer_const_literals_to_create_immutables, no_leading_underscores_for_local_identifiers
+// ignore_for_file: file_names, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, prefer_const_constructors, unused_element, prefer_typing_uninitialized_variables, avoid_unnecessary_containers, library_private_types_in_public_api, avoid_print, non_constant_identifier_names, deprecated_member_use, prefer_const_literals_to_create_immutables, no_leading_underscores_for_local_identifiers, , void_checks, void_checks, void_checks, void_checks, void_checks
 //
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:velnoteproj/logIn.dart';
 
 class MyProfile extends StatefulWidget {
   @override
@@ -22,10 +24,11 @@ class _MyProfileState extends State<MyProfile> {
         title: Container(
           margin: EdgeInsets.only(top: 5),
           child: Text('Profile',
-              style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 30,
-                  fontFamily: 'Chewy-Regular')),
+              style: GoogleFonts.montserrat(
+                  textStyle: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontSize: 30,
+              ))),
         ),
         actions: [
           IconButton(
@@ -53,20 +56,48 @@ class _MyProfileState extends State<MyProfile> {
                   )),
             ),
             SizedBox(height: 20),
-            Text(
-              'Hi! VelNote Admin',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-                fontFamily: 'chewy',
-                color: const Color.fromARGB(255, 55, 4, 103),
-              ),
+            Text('Hi! VelNote Admin',
+                style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  letterSpacing: -2,
+                  fontFamily: 'chewy',
+                  color: const Color.fromARGB(255, 55, 4, 103),
+                ))),
+            SizedBox(height: 40),
+            Divider(
+              color: Colors.black,
+              thickness: 2,
             ),
             SizedBox(height: 40),
-            Row(
-              children: [
-                Container(margin: EdgeInsets.all(20), child: Icon(Icons.edit))
-              ],
+            _mainPlatform(
+              print('tapped'), // function for the button should be added here,
+              _buttonProperties(_EditAccountButton()),
+            ),
+            SizedBox(height: 10),
+            _mainPlatform(
+              print('tapped'), // function for the button should be added here,
+              _buttonProperties(_DeleteAccButton()),
+            ),
+            SizedBox(height: 10),
+            _mainPlatform(
+              print('tapped'), // function for the button should be added here,
+              _buttonProperties(_HelpAndSupportButton()),
+            ),
+            SizedBox(height: 10),
+            _mainPlatform(
+              print('tapped'), // function for the button should be added here,
+              _buttonProperties(_SettingsButton()),
+            ),
+            SizedBox(height: 10),
+            _mainPlatform(
+              // ignore: void_checks
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => MyLogIn()),
+              ),
+              _buttonProperties(_LogOutButton()),
             ),
           ],
         ),
@@ -85,5 +116,146 @@ Widget _textFeild(name) {
         borderSide: BorderSide(color: Colors.grey),
       ),
     ),
+  );
+}
+
+Widget _mainPlatform(void work, widget) {
+  return GestureDetector(
+    onTap: () {
+      work;
+    },
+    child: widget,
+  );
+}
+
+Widget _buttonProperties(dynamic ButtonDetail) {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(50),
+      border: Border.all(
+        color: const Color.fromARGB(255, 255, 255, 255),
+        width: 2,
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: const Color.fromARGB(255, 78, 72, 72).withOpacity(0.1),
+          spreadRadius: 2,
+          blurRadius: 4,
+          offset: Offset(0, 3),
+        ),
+      ],
+    ),
+    child: ButtonDetail,
+  );
+}
+
+Widget _EditAccountButton() {
+  return Row(
+    children: [
+      Container(
+        margin: EdgeInsets.all(20),
+        child: Icon(Icons.edit),
+      ),
+      Container(
+          margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
+          child: Text('Edit My Account',
+              style: GoogleFonts.lora(
+                textStyle: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  letterSpacing: -0.5,
+                ),
+              ))),
+    ],
+  );
+}
+
+Widget _HelpAndSupportButton() {
+  return Row(
+    children: [
+      Container(
+        margin: EdgeInsets.all(20),
+        child: Icon(Icons.help),
+      ),
+      Container(
+          margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
+          child: Text('Help & Support',
+              style: GoogleFonts.lora(
+                textStyle: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  letterSpacing: -0.5,
+                ),
+              ))),
+    ],
+  );
+}
+
+Widget _DeleteAccButton() {
+  return Row(
+    children: [
+      Container(
+        margin: EdgeInsets.all(20),
+        child: Icon(Icons.delete),
+      ),
+      Container(
+          margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
+          child: Text('Delete My Account',
+              style: GoogleFonts.lora(
+                textStyle: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  letterSpacing: -0.5,
+                ),
+              ))),
+    ],
+  );
+}
+
+Widget _SettingsButton() {
+  return Row(
+    children: [
+      Container(
+        margin: EdgeInsets.all(20),
+        child: Icon(Icons.settings),
+      ),
+      Container(
+          margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
+          child: Text('Settings',
+              style: GoogleFonts.lora(
+                textStyle: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  letterSpacing: -0.5,
+                ),
+              ))),
+    ],
+  );
+}
+
+Widget _LogOutButton() {
+  return Row(
+    children: [
+      Container(
+        margin: EdgeInsets.all(20),
+        child: Icon(Icons.logout_outlined),
+      ),
+      Container(
+          margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
+          child: Text('Logout',
+              style: GoogleFonts.lora(
+                textStyle: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  letterSpacing: -0.5,
+                ),
+              ))),
+    ],
   );
 }
