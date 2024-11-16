@@ -1,9 +1,9 @@
-// ignore_for_file: file_names, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, prefer_const_constructors, unused_element, prefer_typing_uninitialized_variables, avoid_unnecessary_containers, library_private_types_in_public_api, avoid_print, non_constant_identifier_names, deprecated_member_use, prefer_const_literals_to_create_immutables, no_leading_underscores_for_local_identifiers, , void_checks, void_checks, void_checks, void_checks, void_checks
-//
-// import 'package:flutter_svg/flutter_svg.dart';
+// ignore_for_file: file_names, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, prefer_const_constructors, unused_element, prefer_typing_uninitialized_variables, avoid_unnecessary_containers, library_private_types_in_public_api, avoid_print, non_constant_identifier_names, deprecated_member_use, prefer_const_literals_to_create_immutables, no_leading_underscores_for_local_identifiers, void_checks
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velnoteproj/logIn.dart';
+import 'package:velnoteproj/homePage.dart';
 
 class MyProfile extends StatefulWidget {
   @override
@@ -13,26 +13,41 @@ class MyProfile extends StatefulWidget {
 class _MyProfileState extends State<MyProfile> {
   @override
   Widget build(BuildContext context) {
-    var isdark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    var isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
-        leading: Container(
-          margin: EdgeInsets.all(10),
-          child: Icon(Icons.arrow_back, color: Colors.black),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomePage(
+                        username: '',
+                        refreshToken: null,
+                      )),
+            );
+          },
+          child: Container(
+            margin: EdgeInsets.all(10),
+            child: Icon(Icons.arrow_back, color: Colors.black),
+          ),
         ),
         title: Container(
           margin: EdgeInsets.only(top: 5),
-          child: Text('Profile',
-              style: GoogleFonts.montserrat(
-                  textStyle: TextStyle(
+          child: Text(
+            'Profile',
+            style: GoogleFonts.montserrat(
+              textStyle: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 30,
-              ))),
+              ),
+            ),
+          ),
         ),
         actions: [
           IconButton(
-            icon: Icon(isdark ? Icons.sunny : Icons.stars),
+            icon: Icon(isDark ? Icons.sunny : Icons.stars),
             onPressed: () {},
           ),
         ],
@@ -45,26 +60,30 @@ class _MyProfileState extends State<MyProfile> {
           children: [
             Center(
               child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(120),
-                    child: Image(
-                      image: AssetImage('assets/img/testProfile.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                  )),
+                width: 100,
+                height: 100,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(120),
+                  child: Image(
+                    image: AssetImage('assets/img/testProfile.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
             SizedBox(height: 20),
-            Text('Hi! VelNote Admin',
-                style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
+            Text(
+              'Hi! VelNote Admin',
+              style: GoogleFonts.poppins(
+                textStyle: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
                   letterSpacing: -2,
                   fontFamily: 'chewy',
                   color: const Color.fromARGB(255, 55, 4, 103),
-                ))),
+                ),
+              ),
+            ),
             SizedBox(height: 40),
             Divider(
               color: Colors.black,
@@ -72,31 +91,40 @@ class _MyProfileState extends State<MyProfile> {
             ),
             SizedBox(height: 40),
             _mainPlatform(
-              print('tapped'), // function for the button should be added here,
+              () {
+                print('Edit Account tapped');
+              },
               _buttonProperties(_EditAccountButton()),
             ),
             SizedBox(height: 10),
             _mainPlatform(
-              print('tapped'), // function for the button should be added here,
+              () {
+                print('Delete Account tapped');
+              },
               _buttonProperties(_DeleteAccButton()),
             ),
             SizedBox(height: 10),
             _mainPlatform(
-              print('tapped'), // function for the button should be added here,
+              () {
+                print('Help & Support tapped');
+              },
               _buttonProperties(_HelpAndSupportButton()),
             ),
             SizedBox(height: 10),
             _mainPlatform(
-              print('tapped'), // function for the button should be added here,
+              () {
+                print('Settings tapped');
+              },
               _buttonProperties(_SettingsButton()),
             ),
             SizedBox(height: 10),
             _mainPlatform(
-              // ignore: void_checks
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => MyLogIn()),
-              ),
+              () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyLogIn()),
+                );
+              },
               _buttonProperties(_LogOutButton()),
             ),
           ],
@@ -106,24 +134,9 @@ class _MyProfileState extends State<MyProfile> {
   }
 }
 
-Widget _textFeild(name) {
-  return TextField(
-    enabled: false,
-    decoration: InputDecoration(
-      labelText: '$name',
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.0),
-        borderSide: BorderSide(color: Colors.grey),
-      ),
-    ),
-  );
-}
-
-Widget _mainPlatform(void work, widget) {
+Widget _mainPlatform(VoidCallback work, Widget widget) {
   return GestureDetector(
-    onTap: () {
-      work;
-    },
+    onTap: work,
     child: widget,
   );
 }
@@ -158,16 +171,19 @@ Widget _EditAccountButton() {
         child: Icon(Icons.edit),
       ),
       Container(
-          margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
-          child: Text('Edit My Account',
-              style: GoogleFonts.lora(
-                textStyle: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: -0.5,
-                ),
-              ))),
+        margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
+        child: Text(
+          'Edit My Account',
+          style: GoogleFonts.lora(
+            textStyle: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              letterSpacing: -0.5,
+            ),
+          ),
+        ),
+      ),
     ],
   );
 }
@@ -180,16 +196,19 @@ Widget _HelpAndSupportButton() {
         child: Icon(Icons.help),
       ),
       Container(
-          margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
-          child: Text('Help & Support',
-              style: GoogleFonts.lora(
-                textStyle: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: -0.5,
-                ),
-              ))),
+        margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
+        child: Text(
+          'Help & Support',
+          style: GoogleFonts.lora(
+            textStyle: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              letterSpacing: -0.5,
+            ),
+          ),
+        ),
+      ),
     ],
   );
 }
@@ -202,16 +221,19 @@ Widget _DeleteAccButton() {
         child: Icon(Icons.delete),
       ),
       Container(
-          margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
-          child: Text('Delete My Account',
-              style: GoogleFonts.lora(
-                textStyle: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: -0.5,
-                ),
-              ))),
+        margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
+        child: Text(
+          'Delete My Account',
+          style: GoogleFonts.lora(
+            textStyle: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              letterSpacing: -0.5,
+            ),
+          ),
+        ),
+      ),
     ],
   );
 }
@@ -224,16 +246,19 @@ Widget _SettingsButton() {
         child: Icon(Icons.settings),
       ),
       Container(
-          margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
-          child: Text('Settings',
-              style: GoogleFonts.lora(
-                textStyle: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: -0.5,
-                ),
-              ))),
+        margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
+        child: Text(
+          'Settings',
+          style: GoogleFonts.lora(
+            textStyle: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              letterSpacing: -0.5,
+            ),
+          ),
+        ),
+      ),
     ],
   );
 }
@@ -246,16 +271,19 @@ Widget _LogOutButton() {
         child: Icon(Icons.logout_outlined),
       ),
       Container(
-          margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
-          child: Text('Logout',
-              style: GoogleFonts.lora(
-                textStyle: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: -0.5,
-                ),
-              ))),
+        margin: EdgeInsets.only(top: 20, right: 20, bottom: 20),
+        child: Text(
+          'Logout',
+          style: GoogleFonts.lora(
+            textStyle: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              letterSpacing: -0.5,
+            ),
+          ),
+        ),
+      ),
     ],
   );
 }
