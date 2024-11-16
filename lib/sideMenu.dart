@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velnoteproj/logIn.dart';
+import 'package:velnoteproj/profile.dart';
 
 class Sidemenu extends StatefulWidget {
   const Sidemenu({super.key});
@@ -82,7 +83,12 @@ class _SidemenuState extends State<Sidemenu> {
             buildAnimatedTile(3, Icons.search, "Search"),
             buildAnimatedTile(4, Icons.create, "Create"),
             buildSectionTitle("Your Account"),
-            buildAnimatedTile(1, Icons.person, "Your Profile"),
+            buildAnimatedTile(1, Icons.person, "Your Profile", onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => MyProfile()),
+              );
+            }),
             buildAnimatedTile(2, Icons.settings, "Settings"),
             buildSectionTitle("Actions"),
             buildAnimatedTile(5, Icons.logout, "Log Out", onTap: () {
