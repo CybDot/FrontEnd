@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 // import 'package:velnoteproj/logIn.dart';
 //  import 'package:velnoteproj/sideMenu.dart';
-// import 'package:velnoteproj/homePage.dart';
+import 'package:velnoteproj/homePage.dart';
 // import 'package:velnoteproj/practice.dart';
-import 'package:velnoteproj/profile.dart';
+// import 'package:velnoteproj/profile.dart';
 
 void main() {
   runApp(VELNote());
@@ -22,7 +22,10 @@ class VELNote extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: MyProfile(),
+      home: HomePage(
+        username: '',
+        refreshToken: null,
+      ),
     );
   }
 }
