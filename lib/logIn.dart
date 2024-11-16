@@ -53,8 +53,8 @@ class _MyLogInState extends State<MyLogIn> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage(
-                username: username,  refreshToken: refreshToken),
+            builder: (context) =>
+                HomePage(username: username, refreshToken: refreshToken),
           ),
         );
       } else {
@@ -106,9 +106,6 @@ class _MyLogInState extends State<MyLogIn> {
       width: mediaSize.width,
       child: const Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.book_online, size: 80, color: Colors.deepPurple),
-        ],
       ),
     );
   }
