@@ -33,14 +33,17 @@ class _MyProfileState extends State<MyProfile> {
             child: Icon(Icons.arrow_back, color: Colors.black),
           ),
         ),
-        title: Container(
-          margin: EdgeInsets.only(top: 5),
-          child: Text(
-            'Profile',
-            style: GoogleFonts.montserrat(
-              textStyle: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 30,
+        title: TextButton(
+          onPressed: () {},
+          child: Container(
+            margin: EdgeInsets.only(top: 5),
+            child: Text(
+              'Profile',
+              style: GoogleFonts.montserrat(
+                textStyle: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 30,
+                ),
               ),
             ),
           ),
@@ -65,7 +68,9 @@ class _MyProfileState extends State<MyProfile> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(120),
                   child: Image(
-                    image: AssetImage('assets/img/testProfile.jpg'),
+                    image: AssetImage(
+                      'assets/img/testProfile.jpg',
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),
