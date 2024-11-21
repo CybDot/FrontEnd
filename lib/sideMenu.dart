@@ -90,13 +90,6 @@ class _SidemenuState extends State<Sidemenu> {
               );
             }),
             buildAnimatedTile(2, Icons.settings, "Settings"),
-            buildSectionTitle("Actions"),
-            buildAnimatedTile(5, Icons.logout, "Log Out", onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => MyLogIn()),
-              );
-            }),
           ],
         ),
       ),
